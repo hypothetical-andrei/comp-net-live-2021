@@ -1,11 +1,58 @@
 package client;
 
+import java.io.IOException;
+import java.net.DatagramSocket;
+import java.net.InetSocketAddress;
+import java.net.SocketException;
+
+import common.Message;
+import common.Transport;
+
+import static common.Message.subscribe;
+import static common.Message.unsubscribe;
+import static common.Message.talk;
+
 public class Client implements AutoCloseable {
 
+	public interface ClientCallback {
+		void onTalk(Message message);
+	}
+	
+	private DatagramSocket socket;
+	private InetSocketAddress address;
+	
+	public Client(String host, int port, ClientCallback callback) throws SocketException {
+		socket = new DatagramSocket();
+		socket.setSendBufferSize(10 * 1024);
+		address = new InetSocketAddress(host, port);
+		try {
+			Transport.send(subscribe(), socket, address);
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		new Thread(() -> {
+			while (socket != null && !socket.isClosed()) {
+				try {
+					callback.onTalk(Transport.receive(socket));
+				} catch (ClassNotFoundException | IOException e) {
+					e.printStackTrace();
+				}
+			}
+		}).start();
+	}
+	
+	public void send(String text) throws IOException {
+		Transport.send(talk(text), socket, address);
+	}
+	
 	@Override
 	public void close() throws Exception {
-		// TODO Auto-generated method stub
-
+		if (socket != null && !socket.isClosed()) {
+			Transport.send(unsubscribe(), socket, address);
+			socket.close();
+			socket = null;
+		}
 	}
 
 }
