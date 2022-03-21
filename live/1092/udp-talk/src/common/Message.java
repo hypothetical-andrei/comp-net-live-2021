@@ -44,4 +44,16 @@ public class Message implements Serializable {
 		this.type = type;
 		this.text = text;
 	}
+	
+	public static Message subscribe() {
+		return new Message(SUBSCRIBE, null);
+	}
+
+	public static Message unsubscribe() {
+		return new Message(UNSUBSCRIBE, null);
+	}
+	
+	public static Message talk(String text) {
+		return new Message(TALK, text);
+	}
 }
