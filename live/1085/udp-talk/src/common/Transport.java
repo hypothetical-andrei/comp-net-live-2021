@@ -1,8 +1,10 @@
 package common;
 
 import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 import java.io.Serializable;
 import java.net.DatagramPacket;
 import java.net.DatagramSocket;
@@ -25,5 +27,13 @@ public class Transport {
 	}
 	
 	
-	public static <T extends Serializable> void send(T object, DatagramSocket socket, InetSocketAddress address) {}
+	public static <T extends Serializable> void send(T object, DatagramSocket socket, InetSocketAddress address) throws IOException {
+		ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
+		ObjectOutputStream objectOutputStream = new ObjectOutputStream(byteArrayOutputStream);
+		objectOutputStream.writeObject(object);
+		objectOutputStream.close();
+		byte[] buffer = byteArrayOutputStream.toByteArray();
+		DatagramPacket packet = new DatagramPacket(buffer, 0, buffer.length, address);
+		socket.send(packet);
+	}
 }
