@@ -1,16 +1,27 @@
 package client;
 
+import java.io.IOException;
+import java.net.SocketException;
+
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Text;
+
+import common.Settings;
+
 import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.widgets.List;
+import org.eclipse.swt.events.KeyAdapter;
+import org.eclipse.swt.events.KeyEvent;
+import org.eclipse.swt.events.ShellAdapter;
+import org.eclipse.swt.events.ShellEvent;
 
 public class Program extends Shell {
 	private Text text;
+	private Client client;
 
 	/**
 	 * Launch the application.
@@ -35,9 +46,21 @@ public class Program extends Shell {
 	/**
 	 * Create the shell.
 	 * @param display
+	 * @throws SocketException 
 	 */
-	public Program(Display display) {
+	public Program(Display display) throws SocketException {
 		super(display, SWT.SHELL_TRIM);
+		addShellListener(new ShellAdapter() {
+			@Override
+			public void shellClosed(ShellEvent e) {
+				try {
+					client.close();
+				} catch (Exception e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
+			}
+		});
 		setLayout(new GridLayout(1, false));
 		
 		List list = new List(this, SWT.BORDER);
@@ -47,8 +70,29 @@ public class Program extends Shell {
 		list.setLayoutData(gd_list);
 		
 		text = new Text(this, SWT.BORDER);
+		text.addKeyListener(new KeyAdapter() {
+			@Override
+			public void keyReleased(KeyEvent e) {
+				if (e.keyCode == SWT.CR && text.getText().trim().length() > 0) {
+					try {
+						client.send(text.getText().trim());
+						text.setText("");
+					} catch (IOException e1) {
+						// TODO Auto-generated catch block
+						e1.printStackTrace();
+					}
+				}
+			}
+		});
 		text.setLayoutData(new GridData(SWT.FILL, SWT.CENTER, true, false, 1, 1));
 		createContents();
+		
+		client = new Client(Settings.HOST, Settings.PORT, (message) -> {
+			getDisplay().asyncExec(() -> {
+				list.add(message.getText());
+				list.redraw();
+			});
+		});
 	}
 
 	/**
