@@ -1,0 +1,30 @@
+package server;
+
+import java.io.IOException;
+import java.net.DatagramSocket;
+import java.net.InetSocketAddress;
+import java.util.HashSet;
+import java.util.Set;
+
+public class Server implements AutoCloseable {
+
+	private DatagramSocket socket;
+
+	public void start(int port) {
+		stop();
+		final Set<InetSocketAddress> addresses = new HashSet<InetSocketAddress>();
+	}
+	
+	public void stop() {
+		if (socket != null && !socket.isClosed()) {
+			socket.close();
+			socket = null;
+		}
+	}
+
+	@Override
+	public void close() throws Exception {
+		stop();		
+	}
+
+}

@@ -1,0 +1,16 @@
+package server;
+
+import java.net.ServerSocket;
+
+public class Program {
+
+	public static void main(String[] args) {
+		try (ServerSocket server = new Server()) {
+			
+		} catch (Exception e) {
+			System.out.println(e.getMessage());
+		}
+
+	}
+
+}
