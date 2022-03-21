@@ -1,0 +1,10 @@
+package server;
+
+public class CounterProtocol {
+
+	public String process(String command) {
+		String[] items = command.split(" ");
+		return null;
+	}
+
+}

@@ -1,0 +1,9 @@
+package common;
+
+import java.io.Serializable;
+import java.net.Socket;
+
+public class Transport {
+
+	public static <T extends Serializable> T receive(Socket socket) {}
+}

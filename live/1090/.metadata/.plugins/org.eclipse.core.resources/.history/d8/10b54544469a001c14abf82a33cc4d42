@@ -1,0 +1,11 @@
+package server;
+
+import java.net.Socket;
+
+public class ClientHandler {
+
+	public ClientHandler(Socket accept) {
+		// TODO Auto-generated constructor stub
+	}
+
+}

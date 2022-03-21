@@ -1,0 +1,29 @@
+package server;
+
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.io.PrintWriter;
+import java.net.ServerSocket;
+import java.net.Socket;
+import java.util.ResourceBundle;
+
+public class Program {
+
+	public static void main(String[] args) throws IOException {
+		int port = Integer.parseInt(ResourceBundle.getBundle("resources").getString("port"));
+		ServerSocket serverSocket = new ServerSocket(port);
+		while (!serverSocket.isClosed()) {
+			Socket clientSocket = serverSocket.accept();
+			BufferedReader reader = new BufferedReader(new InputStreamReader(clientSocket.getInputStream()));
+			PrintWriter writer = new PrintWriter(clientSocket.getOutputStream());
+			while (!clientSocket.isClosed()) {
+				String command = reader.readLine();
+				String response = command.toUpperCase();
+				writer.println(response);
+				writer.flush();
+			}
+		}
+	}
+
+}

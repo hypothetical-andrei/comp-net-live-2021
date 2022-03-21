@@ -1,0 +1,21 @@
+package common;
+
+import java.io.Serializable;
+import java.net.DatagramPacket;
+import java.net.DatagramSocket;
+import java.net.InetSocketAddress;
+
+public class Transport {
+
+	public static <T extends Serializable> T receive(DatagramSocket socket) {
+		byte[] buffer = new byte[10 * 1024];
+		DatagramPacket packet = new DatagramPacket(buffer, buffer.length);
+		socket.setSoTimeout(60000);
+		socket.receive(packet);
+	}
+	
+	public static <T extends Serializable> void send(T object, DatagramSocket socket, InetSocketAddress address) {
+		
+	}
+	
+}

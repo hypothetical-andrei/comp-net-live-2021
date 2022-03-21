@@ -1,0 +1,5 @@
+INDEX VERSION 1.131+/home/null/networks-course/live/1090/.metadata/.plugins/org.eclipse.jdt.core
+1865797976.index
+3922879716.index
+1409381357.index
+122688514.index

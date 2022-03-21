@@ -1,0 +1,10 @@
+package server;
+
+public class CounterProtocol {
+
+	public String process(String command) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+}

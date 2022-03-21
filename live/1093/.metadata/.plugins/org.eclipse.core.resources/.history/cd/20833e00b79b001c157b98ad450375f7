@@ -1,0 +1,53 @@
+package server;
+
+import java.net.Socket;
+
+public class ClientHandler implements Runnable{
+
+	private Socket clientSocket;
+	
+	public ClientHandler(Socket accept) {
+	
+	}
+
+//	while (!serverSocket.isClosed()) {
+//	Socket clientSocket = serverSocket.accept();
+//	BufferedReader reader = new BufferedReader(new InputStreamReader(clientSocket.getInputStream()));
+//	PrintWriter writer = new PrintWriter(clientSocket.getOutputStream());
+//	while (!clientSocket.isClosed()) {
+//		String command = reader.readLine();
+//		try {
+//			if ("exit".equals(command)) {
+//				clientSocket.close();
+//			} else {
+//				String response = command.toUpperCase();
+//				writer.println(response);
+//				writer.flush();					
+//			}					
+//		} catch (Exception e) {
+//			writer.println(e.getMessage());
+//			writer.flush();
+//		}
+//	}
+//}
+	
+	@Override
+	public void run() {
+		while (!clientSocket.isClosed()) {
+			String command = reader.readLine();
+			try {
+				if ("exit".equals(command)) {
+					clientSocket.close();
+				} else {
+					String response = command.toUpperCase();
+					writer.println(response);
+					writer.flush();					
+				}					
+			} catch (Exception e) {
+				writer.println(e.getMessage());
+				writer.flush();
+			}
+		}		
+	}
+
+}

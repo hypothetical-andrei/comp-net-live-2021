@@ -1,0 +1,14 @@
+package server;
+
+import java.util.ResourceBundle;
+
+public class Program {
+
+	public static void main(String[] args) {
+		int port = Integer.parseInt(ResourceBundle.getBundle("settings").getString("port"));
+		try (Server server = new Server(port)) {
+			System.out.println(String.format("Server running on port %d. Type 'exit' to close.", port))
+		}
+	}
+
+}

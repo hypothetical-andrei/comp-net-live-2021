@@ -1,0 +1,15 @@
+package client;
+
+import java.net.Socket;
+
+public class Client implements AutoCloseable{
+
+	private Socket socket;
+	
+	@Override
+	public void close() throws Exception {
+		// TODO Auto-generated method stub
+		
+	}
+
+}

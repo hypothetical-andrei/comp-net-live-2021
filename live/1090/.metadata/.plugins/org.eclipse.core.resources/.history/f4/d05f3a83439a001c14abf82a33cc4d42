@@ -1,0 +1,21 @@
+package client;
+
+import java.net.Socket;
+import java.util.ResourceBundle;
+
+public class Program {
+
+	public static void main(String[] args) {
+		int port = Integer.parseInt(ResourceBundle.getBundle("settings").getString("port"));
+		String host = ResourceBundle.getBundle("settings").getString("host");
+		try (Socket socket = new Socket(host, port)) {
+			System.out.println("Connected to server");
+		} catch (Exception e) {
+			System.out.println(e.getMessage());
+		} finally {
+			System.exit(0);
+		}
+
+	}
+
+}

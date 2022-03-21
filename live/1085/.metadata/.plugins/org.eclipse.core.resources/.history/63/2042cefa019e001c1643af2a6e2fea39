@@ -1,0 +1,12 @@
+package server;
+
+import java.util.ResourceBundle;
+
+public class Program {
+
+	public static void main(String[] args) {
+		int port = Integer.parseInt(ResourceBundle.getBundle("settings").getString("port"));
+
+	}
+
+}

@@ -1,0 +1,17 @@
+package server;
+
+import java.io.IOException;
+import java.net.ServerSocket;
+import java.util.ResourceBundle;
+
+public class Program {
+
+	public static void main(String[] args) throws IOException {
+		int port = Integer.parseInt(ResourceBundle.getBundle("resources").getString("port"));
+		ServerSocket serverSocket = new ServerSocket(port);
+		while (!serverSocket.isClosed()) {
+			
+		}
+	}
+
+}

@@ -1,0 +1,6 @@
+package common;
+
+public class Transport {
+
+	public static Object receive(Socket socket) {}
+}

@@ -1,0 +1,5 @@
+package common;
+
+public class Settings {
+	public static final int PORT;
+}

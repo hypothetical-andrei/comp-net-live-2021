@@ -1,0 +1,15 @@
+package client;
+
+import java.net.InetAddress;
+import java.util.ResourceBundle;
+
+public class Program {
+
+	public static void main(String[] args) {
+		int port = Integer.parseInt(ResourceBundle.getBundle("settings").getString("port"));
+		String host = ResourceBundle.getBundle("settings").getString("host");
+		
+		InetAddress address = InetAddress.getByName(host);
+	}
+
+}

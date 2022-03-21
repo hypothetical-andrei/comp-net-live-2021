@@ -1,0 +1,9 @@
+package server;
+
+public class State {
+	static int counter = 0;
+	
+	public static void increase(int amount) {}
+	
+	public static void decrease(int amount) {
+}

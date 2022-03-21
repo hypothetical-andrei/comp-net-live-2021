@@ -1,0 +1,17 @@
+package server;
+
+import java.net.Socket;
+
+public class ClientHandler implements Runnable {
+
+	public ClientHandler(Socket accept) {
+		// TODO Auto-generated constructor stub
+	}
+
+	@Override
+	public void run() {
+		// TODO Auto-generated method stub
+		
+	}
+
+}

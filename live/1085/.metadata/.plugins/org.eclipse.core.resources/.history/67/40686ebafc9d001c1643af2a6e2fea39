@@ -1,0 +1,14 @@
+package server;
+
+import common.Settings;
+
+public class Program {
+
+	public static void main(String[] args) {
+		try (Server server = new Server()) {
+			server.start(Settings.PORT)
+		}
+
+	}
+
+}

@@ -1,0 +1,33 @@
+package server;
+
+import java.io.IOException;
+import java.net.ServerSocket;
+import java.util.concurrent.ExecutorService;
+
+public class Server implements AutoCloseable{
+
+	private ServerSocket serverSocket;
+	private ExecutorService executorService;
+	
+	@Override
+	public void close() throws Exception {
+		stop();
+		
+	}
+
+	public void start(int port) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	public void stop() throws IOException {
+		if (executorService != null) {
+			executorService.shutdown();
+		}
+		
+		if (serverSocket != null) {
+			serverSocket.close();
+		}
+	}
+
+}

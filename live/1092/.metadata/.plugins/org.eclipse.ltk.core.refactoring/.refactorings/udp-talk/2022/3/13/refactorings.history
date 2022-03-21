@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<session version="1.0">
+<refactoring comment="Rename resource &apos;udp-talk/src/setting.properties&apos; to &apos;settings.properties&apos;" description="Rename resource &apos;setting.properties&apos;" flags="7" id="org.eclipse.ltk.core.refactoring.rename.resource" input="src/setting.properties" name="settings.properties" stamp="1647847885935" updateReferences="true"/>
+</session>

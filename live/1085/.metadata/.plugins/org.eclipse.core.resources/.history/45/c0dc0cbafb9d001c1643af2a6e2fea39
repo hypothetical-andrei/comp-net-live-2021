@@ -1,0 +1,13 @@
+package common;
+
+import java.io.Serializable;
+import java.net.Socket;
+
+public class Transport {
+
+	public static <T extends Serializable> T receive(Socket socket) {
+		byte[] buffer = new byte[socket.getInputStream().read()];
+	}
+	
+	public static <T extends Serializable> void send(T object, Socket socket) {}
+}

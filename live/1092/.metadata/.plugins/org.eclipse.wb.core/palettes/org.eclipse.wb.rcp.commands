@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<commands>
+	<moveEntry
+		id="org.eclipse.wb.rcp.layouts org.eclipse.swt.layout.GridLayout"
+		category="org.eclipse.wb.rcp.layouts"
+		nextEntry="org.eclipse.wb.rcp.layouts swing2swt.layout.BoxLayout"/>
+</commands>
