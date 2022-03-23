@@ -1,6 +1,0 @@
-package common;
-
-public class Settings {
-	public static final int PORT;
-	public static final String HOST;
-}
