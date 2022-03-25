@@ -1,9 +1,0 @@
-package server;
-
-public class Server {
-
-	public Server(int port) implements AutoCloseable {
-		// TODO Auto-generated constructor stub
-	}
-
-}
