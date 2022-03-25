@@ -18,7 +18,12 @@ public class Client implements AutoCloseable {
 		socket = new Socket(host, port);
 		new Thread(() -> {
 			while (socket != null && !socket.isClosed()) {
-				callback.onTalk(Transport.receive(socket));
+				try {
+					callback.onTalk(Transport.receive(socket));
+				} catch (ClassNotFoundException | IOException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
 			}
 		}).start();
 	}
