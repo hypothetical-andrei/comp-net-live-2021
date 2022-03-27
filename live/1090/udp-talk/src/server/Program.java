@@ -10,7 +10,7 @@ public class Program {
 	public static void main(String[] args) {
 		try (Server server = new Server()) {
 			server.start(Settings.PORT);
-			System.out.println(String.format("Server running on port %d. Type 'exit' to close.", port));
+			System.out.println(String.format("Server running on port %d. Type 'exit' to close.", Settings.PORT));
 			try (Scanner scanner = new Scanner(System.in)) {
 				while (true) {
 					String command = scanner.nextLine();
