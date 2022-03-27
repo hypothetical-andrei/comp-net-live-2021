@@ -35,7 +35,7 @@ public class Client implements AutoCloseable {
 		}
 	}
 	
-	private void send(String message) {
+	public void send(String message) {
 		try {
 			Transport.send(message, socket);
 		} catch (IOException e) {
