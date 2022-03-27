@@ -1,6 +1,5 @@
 package server;
 
-import java.util.ResourceBundle;
 import java.util.Scanner;
 
 import common.Settings;
