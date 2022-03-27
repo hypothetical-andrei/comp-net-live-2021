@@ -24,6 +24,8 @@ public class Server implements AutoCloseable {
 				Message message;
 				try {
 					message = Transport.receive(socket);
+					System.out.println(message.getText());
+
 					switch (message.getType()) {
 					case Message.SUBSCRIBE:
 						addresses.add(message.getAddress());
@@ -48,7 +50,7 @@ public class Server implements AutoCloseable {
 					e.printStackTrace();
 				}
 			}
-		});
+		}).start();
 	}
 
 	public void stop() {
