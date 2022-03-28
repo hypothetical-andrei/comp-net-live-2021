@@ -1,6 +1,8 @@
 package processors;
 
 import java.nio.file.Paths;
+import java.sql.Array;
+import java.util.Arrays;
 import java.nio.file.Files;
 import java.nio.file.Path;
 
@@ -26,6 +28,11 @@ public class FilesProcessor implements WebProcessor {
 				} else {
 					response.setStatus(404);
 				}
+			} else {
+				response.getWriter().print("<ul>");
+				Arrays.stream(Paths.get("files").toFile().listFiles(file -> file.isFile())).forEach(file -> response.getWriter().printf("<li>%s</li>", file.getName()));
+				response.getWriter().print("</ul>");
+				response.setContentType("text/html");
 			}
 			break;
 		case "POST":

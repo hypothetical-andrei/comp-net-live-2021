@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.Optional;
 
 import com.sun.net.httpserver.HttpExchange;
 import com.sun.net.httpserver.HttpHandler;
@@ -15,20 +16,38 @@ public class WebHandler implements HttpHandler {
 		WebRequest request;
 		try {
 			request = new WebRequest(exchange);
-			Path path = Paths.get("web", request.getPath());
+			Optional<Class<?>> processorType = Settings.getProcessorType(request.getPath());
 			
-			if (path.toFile().exists()) {
-				if (path.toFile().isDirectory()) {
-					exchange.sendResponseHeaders(403, 0);
-				} else {
-					byte[] bytes = Files.readAllBytes(path);
-					exchange.sendResponseHeaders(200, bytes.length);
+			if (processorType.isPresent()) {
+				WebResponse response = new WebResponse();				
+				WebProcessor.class.cast(processorType.get().getConstructor().newInstance()).process(request, response);
+				if (response.getContentType() != null) {
+					exchange.getResponseHeaders().add("content-type", response.getContentType());
+				}
+				response.getStream().close();
+				response.getWriter().close();
+				byte[] bytes = response.getStream().toByteArray();
+				exchange.sendResponseHeaders(response.getStatus(), bytes.length);
+				if (bytes.length > 0) {
 					exchange.getResponseBody().write(bytes, 0, bytes.length);
 				}
 			} else {
-				exchange.sendResponseHeaders(404, 0);
+				Path path = Paths.get("web", request.getPath());
+				
+				if (path.toFile().exists()) {
+					if (path.toFile().isDirectory()) {
+						exchange.sendResponseHeaders(403, 0);
+					} else {
+						byte[] bytes = Files.readAllBytes(path);
+						exchange.sendResponseHeaders(200, bytes.length);
+						exchange.getResponseBody().write(bytes, 0, bytes.length);
+					}
+				} else {
+					exchange.sendResponseHeaders(404, 0);
+				}				
 			}
-		} catch (IOException e) {
+			
+		} catch (Exception e) {
 			e.printStackTrace();
 			exchange.sendResponseHeaders(500, 0);
 		} finally {
