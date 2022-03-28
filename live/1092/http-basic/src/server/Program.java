@@ -9,9 +9,11 @@ public class Program {
 			server.open(Settings.PORT);
 			System.out.println("Server is running. Type 'exit' to close");
 			try (Scanner scanner = new Scanner(System.in)) {
-				String command = scanner.nextLine();
-				if (command == null || "exit".equals(command)) {
-					break;
+				while(true) {
+					String command = scanner.nextLine();
+					if (command == null || "exit".equals(command)) {
+						break;
+					}					
 				}
 			}
 		} catch (Exception e) {
