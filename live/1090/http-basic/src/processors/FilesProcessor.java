@@ -1,13 +1,14 @@
 package processors;
 
+import java.nio.file.Paths;
+import java.sql.Array;
+import java.util.Arrays;
 import java.nio.file.Files;
 import java.nio.file.Path;
-import java.nio.file.Paths;
 
 import server.WebProcessor;
 import server.WebRequest;
 import server.WebResponse;
-import java.util.Arrays;
 
 public class FilesProcessor implements WebProcessor {
 
@@ -19,28 +20,45 @@ public class FilesProcessor implements WebProcessor {
 				Path path = Paths.get("files", request.getQuery().get("name"));
 				if (path.toFile().exists()) {
 					if (path.toFile().isFile()) {
-						byte[] buffer = Files.readAllBytes(path);
-						response.getStream().write(buffer, 0, buffer.length);
+						byte[] bytes = Files.readAllBytes(path);
+						response.getStream().write(bytes, 0, bytes.length);
+					} else {
+						response.setStatus(403);
 					}
 				} else {
 					response.setStatus(404);
 				}
 			} else {
-				response.getWriter().print("<html><ul>");
+				response.getWriter().print("<ul>");
 				Arrays.stream(Paths.get("files").toFile().listFiles(file -> file.isFile())).forEach(file -> response.getWriter().printf("<li>%s</li>", file.getName()));
-				response.getWriter().print("</ul></html>");
+				response.getWriter().print("</ul>");
 				response.setContentType("text/html");
 			}
 			break;
 		case "POST":
-
+			if (request.getQuery().containsKey("name")) {
+				Files.write(Paths.get("files", request.getQuery().get("name")), request.getBody());
+				response.setStatus(201);
+			} else {
+				response.setStatus(400);
+			}
 			break;
 		case "DELETE":
-
+			if (request.getQuery().containsKey("name")) {
+				Path path = Paths.get("files", request.getQuery().get("name"));
+				if (path.toFile().exists()) {
+					path.toFile().delete();
+					response.setStatus(204);
+				} else {
+					response.setStatus(404);
+				}
+			} else {
+				response.setStatus(400);
+			}
 			break;
 
 		default:
-			break;
+			response.setStatus(405);
 		}
 	}
 
