@@ -1,10 +1,24 @@
 package client;
 
+import java.io.IOException;
+
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Shell;
+import org.eclipse.swt.layout.GridLayout;
+import org.eclipse.swt.widgets.List;
+import org.eclipse.swt.widgets.Label;
+import org.eclipse.swt.widgets.Text;
+
+import common.Settings;
+
+import org.eclipse.swt.layout.GridData;
+import org.eclipse.swt.events.KeyAdapter;
+import org.eclipse.swt.events.KeyEvent;
 
 public class Program extends Shell {
+	private Text text;
+	private Client client;
 
 	/**
 	 * Launch the application.
@@ -29,10 +43,35 @@ public class Program extends Shell {
 	/**
 	 * Create the shell.
 	 * @param display
+	 * @throws IOException 
 	 */
-	public Program(Display display) {
+	public Program(Display display) throws IOException {
 		super(display, SWT.SHELL_TRIM);
+		setLayout(new GridLayout(1, false));
+		
+		List list = new List(this, SWT.BORDER);
+		GridData gd_list = new GridData(SWT.LEFT, SWT.CENTER, false, true, 1, 9);
+		gd_list.heightHint = 336;
+		gd_list.widthHint = 727;
+		list.setLayoutData(gd_list);
+		
+		text = new Text(this, SWT.BORDER);
+		text.addKeyListener(new KeyAdapter() {
+			@Override
+			public void keyReleased(KeyEvent e) {
+				if (e.keyCode == SWT.CR && text.getText().trim().length() > 0) {
+					client.send(text.getText().trim());
+					text.setText("");
+				}
+			}
+		});
+		text.setLayoutData(new GridData(SWT.FILL, SWT.CENTER, true, false, 1, 1));
 		createContents();
+		
+		client = new Client(Settings.HOST, Settings.PORT, message -> {
+			list.add(message.getText());
+			list.redraw();
+		});
 	}
 
 	/**
@@ -40,7 +79,7 @@ public class Program extends Shell {
 	 */
 	protected void createContents() {
 		setText("SWT Application");
-		setSize(450, 300);
+		setSize(740, 419);
 
 	}
 
