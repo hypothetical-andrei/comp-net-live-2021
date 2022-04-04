@@ -17,7 +17,7 @@ public class RestApplication {
 	}
 	
 	@Bean
-	public OpenAPI openApi(@Value("${springdoc.version}") String appVersion) {
+    public OpenAPI openApi(@Value("${springdoc.version}") String appVersion) {
 		return new OpenAPI().info(new Info()
 				.title("Notes API")
 				.version(appVersion)
