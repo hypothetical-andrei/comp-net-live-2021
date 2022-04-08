@@ -35,4 +35,24 @@ public class WebRequest {
 		}
 	}
 
+	public String getMethod() {
+		return method;
+	}
+
+	public String getPath() {
+		return path;
+	}
+
+	public String getContentType() {
+		return contentType;
+	}
+
+	public Map<String, String> getQuery() {
+		return query;
+	}
+
+	public byte[] getBody() {
+		return body;
+	}
+
 }
