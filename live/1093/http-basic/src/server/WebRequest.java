@@ -1,6 +1,7 @@
 package server;
 
 import java.io.IOException;
+import java.util.HashMap;
 import java.util.Map;
 
 import com.sun.net.httpserver.HttpExchange;
@@ -19,6 +20,7 @@ public class WebRequest {
 		if (exchange.getRequestHeaders().containsKey("content-type")) {
 			contentType = exchange.getRequestHeaders().getFirst("content-type");
 		}
+		query = new HashMap<>();
 		if (exchange.getRequestURI().getQuery() != null) {
 			for (String part: exchange.getRequestURI().getQuery().split("&")) {
 				String[] items = part.split("=");

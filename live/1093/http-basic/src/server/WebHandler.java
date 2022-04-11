@@ -45,6 +45,7 @@ public class WebHandler implements HttpHandler {
 				}				
 			}
 		} catch (Exception e) {
+			e.printStackTrace();
 			exchange.sendResponseHeaders(500, 0);
 		} finally {
 			exchange.close();
