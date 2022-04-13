@@ -1,5 +1,20 @@
 package server;
 
-public class Service {
+import java.text.MessageFormat;
+
+import common.Contract;
+import jakarta.jws.WebService;
+
+@WebService(
+		serviceName = "Service", 
+		portName = "ServicePort", 
+		targetNamespace = "http://localhost",
+		endpointInterface = "common.Contract")
+public class Service implements Contract{
+
+	@Override
+	public String sayHello(String name) {
+		return MessageFormat.format("Hello {0}", name);
+	}
 
 }
