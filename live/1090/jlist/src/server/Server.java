@@ -58,6 +58,61 @@ public class Server implements AutoCloseable{
 		});
 	}
 	
+	private String processCommand(String command, ClientState state) {
+		String[] items = command.strip().split("\\s");
+		if (state.isAuthenticated) {
+			switch (items[0]) {
+			case "put":
+				if (items.length == 3) {
+					if (storage.containsKey(items[1])) {
+						List<String> existing = storage.get(items[1]);
+						existing.add(items[2]);
+						storage.put(items[1], existing);
+						return "added to existing list";
+					} else {
+						List<String> existing = new ArrayList<>();
+						existing.add(items[2]);
+						storage.put(items[1], existing);
+						return "added to new list";
+					}
+				} else {
+					return "not enough params";
+				}
+			case "get":
+				if (items.length == 2) {
+					if (storage.containsKey(items[1])) {
+						return storage.get(items[1]).stream().reduce(" ", (a, e) -> a + e);
+					} else {
+						return "no such list";
+					}
+				} else {
+					return "not enough params";
+				}
+			case "delete":
+				return "not supported yet";
+			case "lists":
+				return "not supported yet";
+			default:
+				return "unknown command";
+			}
+		} else {
+			if (items[0].equals("auth")) {
+				if (items.length == 2) {
+					if (items[1].equals("supersecret")) {
+						state.isAuthenticated = true;
+						return "welcome in";
+					} else {
+						return "you shall not pass";
+					}
+				} else {
+					return "not enough params";
+				}
+			} else {
+				return "tell me a secret";
+			}
+		}
+	}
+
 	public void stop() throws IOException {
 		if (serverSocket != null && !serverSocket.isClosed()) {
 			serverSocket.close();
