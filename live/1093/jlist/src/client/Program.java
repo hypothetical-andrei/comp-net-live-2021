@@ -14,6 +14,7 @@ public class Program {
 			try (Scanner scanner = new Scanner(System.in)) {
 				while (true) {
 					String command = scanner.nextLine();
+					client.send(command);
 					if (command == null || "exit".equals(command)) {
 						break;
 					}
