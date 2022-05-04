@@ -7,7 +7,7 @@ import common.Settings;
 public class Program {
 
 	public static void main(String[] args) {
-		try (Client client = new Client(Settings.HOST, Settings.PORT, message -> {
+		try (Client client = new Client(Settings.HOST, 8090, message -> {
 			System.out.println(message);
 		})) {
 			System.out.println("Client connected. Type 'exit' to close");
