@@ -88,6 +88,9 @@ public class Trace extends Shell {
 								executorService.submit(() -> {
 									forward(inboundSocket, outboudSocket);
 								});
+								executorService.submit(() -> {
+									forward(outboudSocket, inboundSocket);
+								});
 							}
 						} catch (IOException e1) {
 							// TODO Auto-generated catch block

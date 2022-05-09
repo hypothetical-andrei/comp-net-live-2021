@@ -12,7 +12,7 @@ public class Program {
 	public static void main(String[] args) {
 		int port = Integer.parseInt(ResourceBundle.getBundle("settings").getString("port"));
 		String host = ResourceBundle.getBundle("settings").getString("host");
-		try (Socket socket = new Socket(host, port)) {
+		try (Socket socket = new Socket(host, 12345)) {
 			System.out.println("Connected to server");
 			BufferedReader reader = new BufferedReader(new InputStreamReader(socket.getInputStream()));
 			PrintWriter writer = new PrintWriter(socket.getOutputStream());
