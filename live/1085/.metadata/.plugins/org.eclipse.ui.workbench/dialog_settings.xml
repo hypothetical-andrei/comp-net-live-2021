@@ -5,7 +5,6 @@
 		<list key="NewWizardSelectionPage.STORE_EXPANDED_CATEGORIES_ID">
 			<item value="org.eclipse.wb"/>
 			<item value="org.eclipse.wb/org.eclipse.wb.rcp"/>
-			<item value="org.eclipse.wb/org.eclipse.wb.rcp/org.eclipse.wb.internal.rcp.databinding"/>
 			<item value="org.eclipse.wb/org.eclipse.wb.rcp/org.eclipse.wb.rcp.swt"/>
 		</list>
 	</section>

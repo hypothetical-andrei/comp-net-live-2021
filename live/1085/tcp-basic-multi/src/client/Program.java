@@ -8,9 +8,10 @@ import java.util.ResourceBundle;
 import java.util.Scanner;
 
 public class Program {
-
+	
 	public static void main(String[] args) {
-		int port = Integer.parseInt(ResourceBundle.getBundle("settings").getString("port"));
+//		int port = Integer.parseInt(ResourceBundle.getBundle("settings").getString("port"));
+		int port = 4444;
 		String hostname = ResourceBundle.getBundle("settings").getString("host");
 		try (Socket socket = new Socket(hostname, port)) {
 			System.out.println("Connected to server");

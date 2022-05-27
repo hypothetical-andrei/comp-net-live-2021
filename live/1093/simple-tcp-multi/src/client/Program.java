@@ -10,7 +10,8 @@ import java.util.Scanner;
 public class Program {
 
 	public static void main(String[] args) {
-		int port = Integer.parseInt(ResourceBundle.getBundle("resources").getString("port"));
+//		int port = Integer.parseInt(ResourceBundle.getBundle("resources").getString("port"));
+		int port = 3333;
 		String host = ResourceBundle.getBundle("resources").getString("host");
 		try (Socket clientSocket = new Socket(host, port)) {
 			System.out.println("Connected to server!");
